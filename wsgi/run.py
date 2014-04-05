@@ -2,8 +2,6 @@ from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
-from flaskext.mail import Mail
-from flaskext.mail import Message 
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
