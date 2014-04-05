@@ -6,14 +6,18 @@ import twilio.twiml
 from twilio.util import TwilioCapability
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
 from flask import make_response
+from flaskext.mail import Mail
+from flaskext.mail import Message
 app = Flask(__name__)
+mail = Mail(app)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 caller_id = "+381641797574"
 callers = {
-    "+2138934515": "neny",
+    "+2138934515": "nenny",
     "+17047514524": "ja",
 }
+default_client = "nenny"
 class Todo(db.Model):
     __tablename__ = 'todos'
     id = db.Column('todo_id', db.Integer, primary_key=True)
@@ -50,6 +54,16 @@ def show_or_update(todo_id):
     todo_item.done  = ('done.%d' % todo_id) in request.form
     db.session.commit()
     return redirect(url_for('index'))
+@app.route("/message")
+def m():
+    msg = Message("Hello",
+                  sender="from@example.com",
+                  recipients=["to@example.com"])
+    msg.recipients = ["you@example.com"]
+    msg.add_recipient("somebodyelse@example.com")
+	msg.body = "testing"
+    msg.html = "<b>testing</b>"
+	mail.send(msg)
 @app.route("/athome", methods=['GET', 'POST'])
 def hello_monkey():
     """Respond to incoming requests."""
