@@ -10,6 +10,10 @@ app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 caller_id = "+381641797574"
+callers = {
+    "+2138934515": "neny",
+    "+17047514524": "ja",
+}
 class Todo(db.Model):
     __tablename__ = 'todos'
     id = db.Column('todo_id', db.Integer, primary_key=True)
@@ -49,10 +53,27 @@ def show_or_update(todo_id):
 @app.route("/athome", methods=['GET', 'POST'])
 def hello_monkey():
     """Respond to incoming requests."""
+    from_number = request.values.get('From', None)
     resp = twilio.twiml.Response()
-    resp.say("Hello Monkey")
+ 
+    # if the caller is someone we know:
+    if from_number in callers:
+        # Greet the caller by name
+        resp.say("Hello " + callers[from_number])
+    else:
+        resp.say("Hello Monkey")
  
     return str(resp)
+@app.route('/calltemplate', methods=['GET', 'POST'])
+def calltemplate():
+    account_sid = "AC96c40c4506d9eb0ce591a72d0c75010a"
+    auth_token  = "225cc2dccdd75b337b8755f71b95804e"
+    client = TwilioRestClient(account_sid, auth_token)
+
+    call = client.calls.create(to="+381641797574",
+                           from_="+17047514524",
+                           url="http://demo.twilio.com/docs/voice.xml")
+    print call.sid
 @app.route('/template', methods=['GET', 'POST'])
 def template():
     if request.method == 'POST':
