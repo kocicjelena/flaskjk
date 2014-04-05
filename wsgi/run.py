@@ -28,5 +28,3 @@ def index():
  
 if __name__ == '__main__':
     app.run()
-from flaskjkapp import *
-db.create_all()
