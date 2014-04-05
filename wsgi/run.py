@@ -5,8 +5,6 @@ from flask import Flask, request, flash, url_for, redirect, render_template, abo
 from flaskext.mail import Mail
 from flaskext.mail import Message 
 app = Flask(__name__)
-mail = Mail()
-mail.init_app(app) 
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
  
@@ -48,7 +46,6 @@ def show_or_update(todo_id):
     return redirect(url_for('index'))
 @app.route("/email")
 def email():
-
     msg = Message("Hello",
                   sender="kjelenak@hotmail.com",
                   recipients=["kocicjelena@gmail.com"])
