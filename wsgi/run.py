@@ -2,9 +2,11 @@ from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
- 
+from flaskext.mail import Mail
+from flaskext.mail import Message 
 app = Flask(__name__)
- 
+mail = Mail()
+mail.init_app(app) 
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
  
@@ -44,5 +46,13 @@ def show_or_update(todo_id):
     todo_item.done  = ('done.%d' % todo_id) in request.form
     db.session.commit()
     return redirect(url_for('index'))
+@app.route("/email")
+def email():
+
+    msg = Message("Hello",
+                  sender="kjelenak@hotmail.com",
+                  recipients=["kocicjelena@gmail.com"])
+	assert msg.sender == "Me <me@example.com>"
+	mail.send(msg)
 if __name__ == '__main__':
     app.run()
