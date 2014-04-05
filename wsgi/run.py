@@ -9,7 +9,6 @@ from flask import make_response
 from flaskext.mail import Mail
 from flaskext.mail import Message
 app = Flask(__name__)
-mail = Mail(app)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 caller_id = "+381641797574"

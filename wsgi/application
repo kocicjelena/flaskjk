@@ -17,7 +17,9 @@ try:
     execfile(virtualenv, dict(__file__=virtualenv))
 except IOError:
     pass
-
+from flaskext.mail import Mail
+from run import app
+mail = Mail(app)
 from run import app as application
 from run import *
 db.create_all()
