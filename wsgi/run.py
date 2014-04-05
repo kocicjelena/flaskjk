@@ -1,11 +1,15 @@
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from twilio.rest import TwilioRestClient
+import twilio.twiml
+from twilio.util import TwilioCapability
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
+from flask import make_response
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
- 
+caller_id = "+381641797574"
 class Todo(db.Model):
     __tablename__ = 'todos'
     id = db.Column('todo_id', db.Integer, primary_key=True)
@@ -42,5 +46,74 @@ def show_or_update(todo_id):
     todo_item.done  = ('done.%d' % todo_id) in request.form
     db.session.commit()
     return redirect(url_for('index'))
+@app.route("/athome", methods=['GET', 'POST'])
+def hello_monkey():
+    """Respond to incoming requests."""
+    resp = twilio.twiml.Response()
+    resp.say("Hello Monkey")
+ 
+    return str(resp)
+@app.route('/template', methods=['GET', 'POST'])
+def template():
+    if request.method == 'POST':
+        return "Hello" 
+    return render_template('template.html')
+@app.route('/voice', methods=['GET', 'POST'])
+def voice():
+    from_number = request.values.get('PhoneNumber', None)
+ 
+    resp = twilio.twiml.Response()
+ 
+    with resp.dial(callerId=caller_id) as r:
+        # If we have a number, and it looks like a phone number:
+        if from_number and re.search('^[\d\(\)\- \+]+$', from_number):
+            r.number(from_number)
+        else:
+            r.client(default_client)
+ 
+    return str(resp)
+@app.route('/sms')
+def sms():
+    # Your Account Sid and Auth Token from twilio.com/user/account
+    account_sid = "AC96c40c4506d9eb0ce591a72d0c75010a"
+    auth_token  = "225cc2dccdd75b337b8755f71b95804e"
+    client = TwilioRestClient(account_sid, auth_token)
+ 
+    message = client.sms.messages.create(body="pozdrav, Jelena <3",
+    to="+381641797574",    # Replace with your phone number
+    from_="+17047514524") # Replace with your Twilio number
+    print message.sid
+    return 'Hello World'
+@app.route('/client', methods=['GET', 'POST'])
+def client():
+    """Respond to incoming requests."""
+ 
+    client_name = request.values.get('client', None) or "nenny"
+ 
+    # Find these values at twilio.com/user/account
+    account_sid = "AC96c40c4506d9eb0ce591a72d0c75010a"
+    auth_token = "225cc2dccdd75b337b8755f71b95804e"
+ 
+    capability = TwilioCapability(account_sid, auth_token)
+ 
+    application_sid = "AP7f494fd198a91134a17c246fe398a913" # Twilio Application Sid
+    capability.allow_client_outgoing(application_sid)
+    capability.allow_client_incoming(client_name)
+    token = capability.generate()
+ 
+    return render_template('client.html', token=token,
+                           client_name=client_name)
+@app.route('/drugi')
+def drugi():
+    # Your Account Sid and Auth Token from twilio.com/user/account
+    account_sid = "AC96c40c4506d9eb0ce591a72d0c75010a"
+    auth_token  = "225cc2dccdd75b337b8755f71b95804e"
+    client = TwilioRestClient(account_sid, auth_token)
+ 
+    message = client.sms.messages.create(body="pozdrav, ovo je za sada besplatna poruka, zvrcni ako dobijes, Jelena <3",
+    to="+381691998796",    # Replace with your phone number
+    from_="+17047514524") # Replace with your Twilio number
+    print message.sid
+    return 'Hello World'
 if __name__ == '__main__':
     app.run()
