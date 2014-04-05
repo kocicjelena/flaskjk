@@ -53,16 +53,6 @@ def show_or_update(todo_id):
     todo_item.done  = ('done.%d' % todo_id) in request.form
     db.session.commit()
     return redirect(url_for('index'))
-@app.route("/message")
-def m():
-    msg = Message("Hello",
-                  sender="from@example.com",
-                  recipients=["to@example.com"])
-    msg.recipients = ["you@example.com"]
-    msg.add_recipient("somebodyelse@example.com")
-	msg.body = "testing"
-    msg.html = "<b>testing</b>"
-	mail.send(msg)
 @app.route("/athome", methods=['GET', 'POST'])
 def hello_monkey():
     """Respond to incoming requests."""
