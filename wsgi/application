@@ -19,4 +19,6 @@ except IOError:
     pass
 
 from run import app as application
+from run import *
+db.create_all()
 
