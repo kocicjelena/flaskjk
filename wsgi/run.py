@@ -54,14 +54,16 @@ def show_or_update(todo_id):
 def hello_monkey():
     """Respond to incoming requests."""
     from_number = request.values.get('From', None)
-    resp = twilio.twiml.Response()
- 
-    # if the caller is someone we know:
     if from_number in callers:
-        # Greet the caller by name
-        resp.say("Hello " + callers[from_number])
+        caller = callers[from_number]
     else:
-        resp.say("Hello Monkey")
+        caller = "Monkey"
+ 
+    resp = twilio.twiml.Response()
+    # Greet the caller by name
+    resp.say("Hello " + caller)
+    # Play an MP3
+    resp.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
  
     return str(resp)
 @app.route('/calltemplate', methods=['GET', 'POST'])
