@@ -21,11 +21,6 @@ class Todo(db.Model):
         self.text = text
         self.done = False
         self.pub_date = datetime.utcnow()
- 
-@app.route('/')
-@app.route('/hello')
-def index():
-    return "Hello from OpenShift"
 @app.route('/new', methods=['GET', 'POST'])
 def new():
     if request.method == 'POST':
