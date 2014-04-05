@@ -44,11 +44,5 @@ def show_or_update(todo_id):
     todo_item.done  = ('done.%d' % todo_id) in request.form
     db.session.commit()
     return redirect(url_for('index'))
-@app.route('/email')
-def email():
-    msg = Message("Hello",
-                  sender="kjelenak@hotmail.com",
-                  recipients=["kocicjelena@gmail.com"])
-	mail.send(msg)
 if __name__ == '__main__':
     app.run()
