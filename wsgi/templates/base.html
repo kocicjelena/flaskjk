@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>{% block title %}{% endblock %}</title>
+		<script src="{{ url_for('static', filename='style.css') }}"></script>
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='js/bootstrap.js') }}" />
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='offcanvas.css') }}" />
+		<meta charset="utf-8" />
+	</head>
+	<body>
+	<div class="navbar navbar-fixed-top navbar-default" role="navigation">
+      <div class="container">
+	  <h1></h1>
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#"><span class="glyphicon glyphicon-pencil">MY Wishlist</span></a></li>
+            <li><a href="#about"><span class="glyphicon glyphicon-user">My Account</span></a></li>
+            <li><a href="#contact"><span class="glyphicon glyphicon-shopping-card">Shopping Cart</span></a></li>
+			<li><a href="#contact"><span class="glyphicon glyphicon-pencil">Checkout</span></a></li>
+          </ul>
+		   <ul class="nav navbar-nav navbar-right">
+		  
+            <li class="nav nav-pills"><a href="#contact" role="button"><span class="glyphicon glyphicon-search">Serbian</span></a></li>
+            <li class="nav nav-pills"><a href="#contact"><span class="glyphicon glyphicon-search">English</span></a></li>
+          
+          </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div>
+	 <div class="navbar navbar-default" role="navigation">
+      <div class="container">
+       <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+         
+            <li><a href="#about"> <img src="img/venedor.jpg" class="img-thumbnail" alt=""></a></li>
+            
+          </ul>
+		  
+		  <ul class="nav navbar-nav navbar-right">
+            
+            <li class="active"><a href="#"><span class="glyphicon glyphicon-earphone">+(381)</span></a></li>
+			<li><a href="#"><span class="glyphicon glyphicon-earphone">support</span></a></li>
+		  <!--<li><a href="#"></a>venedor_support</li>-->
+           
+		  </ul>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">post</a></li>
+            <li><a href="#about">send email</a></li>
+            <li><a href="#contact">sms</a></li>
+			<li><a href="#contact">phone</a></li>
+			<li><a href="/home">AT HOME</a></li>
+			<li><a href="/book">BOOK</a></li>
+          </ul>
+		  
+		  <ul class="nav navbar-nav navbar-right">
+            
+           <li><a href="#"><form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form></a></li>
+		  <li><a href="#"><span class="glyphicon glyphicon-search">ITEMS</span></a></li>
+           
+		  </ul>
+        </div><!-- /.nav-collapse -->
+      </div><!-- /.container -->
+    </div>
+        <div class="container">
+		   
+                    <ul class="nav">
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="/new">New Todo</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+    
+ 
+{%- for category, message in get_flashed_messages(with_categories=true) %}
+  <p class="flask {{ category }}-flash">{{
+    "Error: " if category == 'error' }}{{ message }}</p>
+{%- endfor %}
+<div id="main" class="container">
+    {% block body %}{% endblock %}
+    <hr>
+		<footer> <div class="page-header">
+	  <div class="alert alert-success">
+        <strong></strong> 
+      </div> </div> 
+      <div class="navbar navbar-fixed-bottom navbar-inverse" role="navigation">
+      <div class="container">
+	   </div>
+	  </div>
+
+      </footer>
+
+	</body>
+</html>

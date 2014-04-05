@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask import Flask, request, flash, url_for, redirect, render_template, abort
  
 app = Flask(__name__)
  
@@ -25,6 +26,13 @@ class Todo(db.Model):
 @app.route('/hello')
 def index():
     return "Hello from OpenShift"
- 
+@app.route('/new', methods=['GET', 'POST'])
+def new():
+    if request.method == 'POST':
+            todo = Todo(request.form['title'], request.form['text'])
+            db.session.add(todo)
+            db.session.commit()
+            return redirect(url_for('index'))
+    return render_template('new.html') 
 if __name__ == '__main__':
     app.run()
