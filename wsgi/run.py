@@ -34,7 +34,7 @@ class Todo(db.Model):
         self.pub_date = datetime.utcnow()
 @app.route("/cont", methods=['POST', 'GET'])
 def cont():
-    if request.method == 'POST':
+    if request.method == ['POST']:
         client.sms.messages.create(
         to=request.form['phone_number'],
         from_=twilio_from_number,
