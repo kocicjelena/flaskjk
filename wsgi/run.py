@@ -35,11 +35,10 @@ class Todo(db.Model):
 @app.route("/cont", methods=['POST', 'GET'])
 def cont():
     if request.method == ['POST']:
-        message = client.sms.messages.create(
+        client.sms.messages.create(
         to=request.form['phone_number'],
         from_=twilio_from_number,
         body="text" % request.form['text'])
-    print message.sid
     return render_template('cont.html')
 @app.route('/new', methods=['GET', 'POST'])
 def new():
@@ -133,7 +132,7 @@ def client():
  
     capability = TwilioCapability(account_sid, auth_token)
  
-    application_sid = "AP7f494fd198a91134a17c246fe398a913" # Twilio Application Sid
+    application_sid = "APcc359f37a449fe4d89eb0a4e8fa9d303" # Twilio Application Sid
     capability.allow_client_outgoing(application_sid)
     capability.allow_client_incoming(client)
     token = capability.generate()
