@@ -142,15 +142,6 @@ def drugi():
     from_="+17047514524") # Replace with your Twilio number
     print message.sid
     return 'Hello World'
-@app.route("/email", methods=['GET', 'POST'])
-def email():
-  form = ContactForm()
-
-  if request.method == 'POST':
-    return render_template('contact.html', form=form)
-    
-  elif request.method == 'GET':
-    return render_template('contact.html', form=form)
 
 if __name__ == '__main__':
     app.run()
