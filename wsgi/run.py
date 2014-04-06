@@ -2,6 +2,7 @@ from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
+from flask_mail import Message
 from twilio.rest import TwilioRestClient
 import twilio.twiml
 from twilio.util import TwilioCapability
@@ -140,5 +141,13 @@ def drugi():
     from_="+17047514524") # Replace with your Twilio number
     print message.sid
     return 'Hello World'
+@app.route("/email")
+def email():
+
+    msg = Message("Hello",
+                  sender="from@example.com",
+                  recipients=["to@example.com"])
+	assert msg.sender == "Me <me@example.com>"
+	mail.send(msg)
 if __name__ == '__main__':
     app.run()
