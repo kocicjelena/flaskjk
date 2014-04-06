@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_mail import Mail
 from twilio.rest import TwilioRestClient
 import twilio.twiml
 from twilio.util import TwilioCapability
