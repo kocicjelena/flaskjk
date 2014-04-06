@@ -35,11 +35,11 @@ class Todo(db.Model):
 @app.route("/cont", methods=['POST', 'GET'])
 def cont():
     if request.method == ['POST']:
-        mes1 = client.sms.messages.create(
+        message = client.sms.messages.create(
         to=request.form['phone_number'],
         from_=twilio_from_number,
-        body="Check this out: %s?dl=false" % request.form['text'])
-    print mes1.sid
+        body="text" % request.form['text'])
+    print message.sid
     return render_template('cont.html')
 @app.route('/new', methods=['GET', 'POST'])
 def new():
@@ -106,7 +106,7 @@ def voice():
         if from_number and re.search('^[\d\(\)\- \+]+$', from_number):
             r.number(from_number)
         else:
-            r.client(default_client)
+            r.client(client)
  
     return str(resp)
 @app.route('/sms')
