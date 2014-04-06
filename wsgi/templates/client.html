@@ -14,7 +14,7 @@
       Twilio.Device.setup("{{ token }}");
   
       Twilio.Device.ready(function (device) {
-        $("#log").text("Client '{{ client_name }}' is ready");
+        $("#log").text("Client '{{ client }}' is ready");
       });
   
       Twilio.Device.error(function (error) {
