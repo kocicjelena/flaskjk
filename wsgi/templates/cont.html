@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><title>SMS </title></head>
+<body>
+<form action="/" method="POST">
+Cell phone number: <input name="phone_number" type="text" />
+Image to send via SMS: <input name="text" type="text" />
+<button type="submit">Send File</button>
+</form>
+{% if sms_sent is sameas False %}
+<div class="row-fluid">
+<div class="span4">
+<h3 class="text-error">Error sending SMS. Try again?</h3>
+</div>
+</div>
+{% endif %}
+{% if sms_sent is sameas True %}
+<div class="row-fluid">
+<div class="span4">
+<h2>Sent to {{ phone_number }}:</h2>
+<img src="{{ file }}"/>
+</div>
+</div>
+{% endif %} 
+</body>
+</html>

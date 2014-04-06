@@ -10,14 +10,15 @@ from flask import make_response
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
-
-
+twilio_account_sid = "AC96c40c4506d9eb0ce591a72d0c75010a"
+twilio_auth_token = "225cc2dccdd75b337b8755f71b95804e"
+twilio_from_number = "+17047514524"
+client = TwilioRestClient(twilio_account_sid, twilio_auth_token)
 caller_id = "+381641797574"
 callers = {
     "+2138934515": "nenny",
     "+17047514524": "ja",
 }
-default_client = "nenny"
 class Todo(db.Model):
     __tablename__ = 'todos'
     id = db.Column('todo_id', db.Integer, primary_key=True)
@@ -31,6 +32,15 @@ class Todo(db.Model):
         self.text = text
         self.done = False
         self.pub_date = datetime.utcnow()
+@app.route("/cont", methods=['POST', 'GET'])
+def cont():
+    if request.method == 'POST':
+        client.sms.messages.create(
+        to=request.form['phone_number'],
+        from_=twilio_from_number,
+        body="Check this out: %s?dl=false" % request.form['text'])
+   
+    return render_template('cont.html')
 @app.route('/new', methods=['GET', 'POST'])
 def new():
     if request.method == 'POST':
