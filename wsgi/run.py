@@ -106,7 +106,7 @@ def sms():
     auth_token  = "225cc2dccdd75b337b8755f71b95804e"
     client = TwilioRestClient(account_sid, auth_token)
     #body = Todo.query.filter_by(title='1').first()
-    message = client.sms.messages.create(body="Check this out",
+    message = client.sms.messages.create(body="Check this out" % Todo.query.filter_by(title='1').first(),
     to="+381641797574",    # Replace with your phone number
     from_="+17047514524") # Replace with your Twilio number
     print message.sid
