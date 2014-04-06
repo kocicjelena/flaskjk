@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
@@ -9,12 +10,26 @@ import twilio.twiml
 from twilio.util import TwilioCapability
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
 from flask import make_response
+from flask.ext.mail import Mail, Message
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
-'MAIL_USERNAME' = "kocicjelena@gmail.com"
-'MAIL_PASSWORD' = "lej5791cok"
-'MAIL_USE_TLS' = True
+
+mail=Mail(app)
+
+USERNAME = 'kocicjelena@gmail.com'
+PASSWORD = 'lej5791cok'
+
+app.config.update(
+MAIL_SERVER = 'smtp.gmail.com',
+MAIL_PORT = 465,
+MAIL_USE_SSL = True,
+# MAIL_USE_TSL = True,
+MAIL_USERNAME = USERNAME,
+MAIL_PASSWORD = PASSWORD,
+MAIL_FAIL_SILENTLY=False,
+DEBUG = True)
+mail=Mail(app)
 caller_id = "+381641797574"
 callers = {
     "+2138934515": "nenny",
