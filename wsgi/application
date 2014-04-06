@@ -17,8 +17,7 @@ try:
     execfile(virtualenv, dict(__file__=virtualenv))
 except IOError:
     pass
-from flask_mail import Mail
-mail = Mail(app)
+
 from run import app as application
 from run import *
 db.create_all()
