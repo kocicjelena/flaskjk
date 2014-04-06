@@ -8,19 +8,11 @@ from twilio.util import TwilioCapability
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
 from flask import make_response
 from forms import ContactForm
-from flask.ext.mail import Mail, Message
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 
-app.secret_key = 'development key'
 
-app.config["MAIL_SERVER"] = "smtp.gmail.com"
-app.config["MAIL_PORT"] = 465
-app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = 'kocicjelena@gmail.com'
-app.config["MAIL_PASSWORD"] = 'lej5791cok'
-mail.init_app(app)
 caller_id = "+381641797574"
 callers = {
     "+2138934515": "nenny",
