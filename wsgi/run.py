@@ -149,6 +149,6 @@ def email():
                   sender="from@example.com",
                   recipients=["to@example.com"])
 	assert msg.sender == "Me <me@example.com>"
-	Connection.send(msg)
+	msg.send()
 if __name__ == '__main__':
     app.run()
