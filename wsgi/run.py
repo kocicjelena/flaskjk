@@ -64,7 +64,7 @@ def hello_monkey():
     # Greet the caller by name
     resp.say("Hello " + caller)
     # Play an MP3
-    resp.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
+    #resp.play("http://demo.twilio.com/hellomonkey/monkey.mp3")
  
     return str(resp)
 @app.route('/calltemplate', methods=['GET', 'POST'])
