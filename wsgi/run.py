@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail
-from flask_mail import Message
+from flask_mail import Message, _MailMixin
 from flask_mail import Connection
 from twilio.rest import TwilioRestClient
 import twilio.twiml
@@ -149,6 +149,6 @@ def email():
                   sender="from@example.com",
                   recipients=["to@example.com"])
 	assert msg.sender == "Me <me@example.com>"
-	msg.send()
+	_MailMixin.send(msg)
 if __name__ == '__main__':
     app.run()
