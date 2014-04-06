@@ -165,7 +165,7 @@ def email():
       From: %s <%s>
       %s
       """ % (form.name.data, form.email.data, form.message.data)
-      mail.send(msg)
+      #mail.send(msg
 
       return render_template('contact.html', success=True)
 
