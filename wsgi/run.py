@@ -7,6 +7,7 @@ import twilio.twiml
 from twilio.util import TwilioCapability
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
 from flask import make_response
+from forms import ContactForm
 from flask.ext.mail import Mail, Message
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
@@ -150,13 +151,26 @@ def drugi():
     from_="+17047514524") # Replace with your Twilio number
     print message.sid
     return 'Hello World'
-@app.route("/email")
+@app.route("/email", methods=['GET', 'POST'])
 def email():
+  form = ContactForm()
 
-    msg = Message("Hello",
-                  sender="from@example.com",
-                  recipients=["to@example.com"])
-	assert msg.sender == "Me <kocicjelena@gmail.com>"
-	Mail.send(msg)
+  if request.method == 'POST':
+    if form.validate() == False:
+      flash('All fields are required.')
+      return render_template('contact.html', form=form)
+    else:
+      msg = Message(form.subject.data, sender='contact@example.com', recipients=['kocicjelena@gmail.com'])
+      msg.body = """
+      From: %s <%s>
+      %s
+      """ % (form.name.data, form.email.data, form.message.data)
+      mail.send(msg)
+
+      return render_template('contact.html', success=True)
+
+  elif request.method == 'GET':
+    return render_template('contact.html', form=form)
+
 if __name__ == '__main__':
     app.run()

@@ -43,7 +43,7 @@
        <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
          
-            <li><a href="#about"> <img src="static/img/jk.gif" class="img-thumbnail" alt=""></a></li>
+            <li><a href="{{ url_for('static', filename='jk.gif') }}"> <img src="static/img/jk.gif" class="img-thumbnail" alt=""></a></li>
             
           </ul>
 		  
@@ -65,7 +65,8 @@
             <li><a href="/sms">sms me</a></li>
 			<li><a href="/client">phone me</a></li>
 			<li><a href="/athome"> IS AT HOME</a></li>
-			<li><a href="/drugi">BOOK</a></li>
+			<li><a href="/email">BOOK</a></li>
+				<li><a href="{{ url_for('email') }}">Contact</a></li>
           </ul>
 		  
 		  <ul class="nav navbar-nav navbar-right">
