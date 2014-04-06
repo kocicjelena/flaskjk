@@ -10,7 +10,6 @@ from twilio.util import TwilioCapability
 from flask import Flask, request, flash, url_for, redirect, render_template, abort
 from flask import make_response
 app = Flask(__name__)
-mail = Mail(app)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 'MAIL_USERNAME' = "kocicjelena@gmail.com"
