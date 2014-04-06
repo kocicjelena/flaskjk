@@ -29,7 +29,7 @@ MAIL_USERNAME = USERNAME,
 MAIL_PASSWORD = PASSWORD,
 MAIL_FAIL_SILENTLY=False,
 DEBUG = False)
-mail=Mail(app)
+mail.init_app(app)
 caller_id = "+381641797574"
 callers = {
     "+2138934515": "nenny",
