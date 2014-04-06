@@ -142,6 +142,9 @@ def drugi():
     from_="+17047514524") # Replace with your Twilio number
     print message.sid
     return 'Hello World'
-
+@app.route('/contact')
+def contact():
+  form = ContactForm()
+  return render_template('contact.html', form=form)
 if __name__ == '__main__':
     app.run()
