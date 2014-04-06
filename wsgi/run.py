@@ -15,7 +15,7 @@ app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 
-mail=Mail(app)
+
 
 USERNAME = 'kocicjelena@gmail.com'
 PASSWORD = 'lej5791cok'
@@ -28,7 +28,7 @@ MAIL_USE_SSL = True,
 MAIL_USERNAME = USERNAME,
 MAIL_PASSWORD = PASSWORD,
 MAIL_FAIL_SILENTLY=False,
-DEBUG = True)
+DEBUG = False)
 mail=Mail(app)
 caller_id = "+381641797574"
 callers = {
