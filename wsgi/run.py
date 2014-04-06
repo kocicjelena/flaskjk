@@ -12,6 +12,9 @@ from flask import make_response
 app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
+'MAIL_USERNAME' = "kocicjelena@gmail.com"
+'MAIL_PASSWORD' = "lej5791cok"
+'MAIL_USE_TLS' = True
 caller_id = "+381641797574"
 callers = {
     "+2138934515": "nenny",
@@ -148,7 +151,7 @@ def email():
     msg = Message("Hello",
                   sender="from@example.com",
                   recipients=["to@example.com"])
-	assert msg.sender == "Me <me@example.com>"
+	assert msg.sender == "Me <kocicjelena@gmail.com>"
 	_MailMixin.send(msg)
 if __name__ == '__main__':
     app.run()
