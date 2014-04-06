@@ -78,7 +78,7 @@ def calltemplate():
 
     call = client.calls.create(to="+381641797574",
                            from_="+17047514524",
-                           url="http://demo.twilio.com/docs/voice.xml")
+                           url="http://flaskjk-kjelenak.rhcloud.com//voice")
     print call.sid
 @app.route('/template', methods=['GET', 'POST'])
 def template():
@@ -105,8 +105,8 @@ def sms():
     account_sid = "AC96c40c4506d9eb0ce591a72d0c75010a"
     auth_token  = "225cc2dccdd75b337b8755f71b95804e"
     client = TwilioRestClient(account_sid, auth_token)
- 
-    message = client.sms.messages.create(body="pozdrav, Jelena <3",
+    body = User.query.filter_by(title='1').first()
+    message = client.sms.messages.create(body=body,
     to="+381641797574",    # Replace with your phone number
     from_="+17047514524") # Replace with your Twilio number
     print message.sid
