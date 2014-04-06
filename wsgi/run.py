@@ -2,9 +2,6 @@ import os
 from datetime import datetime
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_mail import Mail
-from flask_mail import Message, _MailMixin
-from flask_mail import Connection
 from twilio.rest import TwilioRestClient
 import twilio.twiml
 from twilio.util import TwilioCapability
@@ -15,20 +12,13 @@ app = Flask(__name__)
 app.config.from_pyfile('run.cfg')
 db = SQLAlchemy(app)
 
+app.secret_key = 'development key'
 
-
-USERNAME = 'kocicjelena@gmail.com'
-PASSWORD = 'lej5791cok'
-
-app.config.update(
-MAIL_SERVER = 'smtp.gmail.com',
-MAIL_PORT = 465,
-MAIL_USE_SSL = True,
-# MAIL_USE_TSL = True,
-MAIL_USERNAME = USERNAME,
-MAIL_PASSWORD = PASSWORD,
-MAIL_FAIL_SILENTLY=False,
-DEBUG = False)
+app.config["MAIL_SERVER"] = "smtp.gmail.com"
+app.config["MAIL_PORT"] = 465
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = 'kocicjelena@gmail.com'
+app.config["MAIL_PASSWORD"] = 'lej5791cok'
 mail.init_app(app)
 caller_id = "+381641797574"
 callers = {
